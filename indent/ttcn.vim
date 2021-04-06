@@ -29,34 +29,34 @@ if exists("*Get_ttcn_indent")
 endif
 
 
-" " Returns the number of the closest previous line that contains code (i.e. it
-" " skips blank lines and pure comment lines)
-" function Get_previous_code_line(lnum)
-"     let i = a:lnum - 1
-"     while i > 0
-"         let i = prevnonblank(i)
-"         if getline(i) =~ '\*/\s*$'
-"             while getline(i) !~ '/\*' && i > 1
-"                 let i = i - 1
-"             endwhile
-"             if getline(i) =~ '^\s*/\*'
-"                 let i = i - 1
-"             else
-"                 break
-"             endif
-"         elseif getline(i) =~ '^\s*//'
-"             let i = i - 1
-"         else
-"             break
-"         endif
-"     endwhile
-"     return i
-" endfunction
-"
-" " Returns true if the given line contains code
-" function Is_code_line(lnum)
-"     return Get_previous_code_line(a:lnum + 1) == a:lnum
-" endfunction
+ " Returns the number of the closest previous line that contains code (i.e. it
+ " skips blank lines and pure comment lines)
+ function Get_previous_code_line(lnum)
+     let i = a:lnum - 1
+     while i > 0
+         let i = prevnonblank(i)
+         if getline(i) =~ '\*/\s*$'
+             while getline(i) !~ '/\*' && i > 1
+                 let i = i - 1
+             endwhile
+             if getline(i) =~ '^\s*/\*'
+                 let i = i - 1
+             else
+                 break
+             endif
+         elseif getline(i) =~ '^\s*//'
+             let i = i - 1
+         else
+             break
+         endif
+     endwhile
+     return i
+ endfunction
+
+ " Returns true if the given line contains code
+ function Is_code_line(lnum)
+     return Get_previous_code_line(a:lnum + 1) == a:lnum
+ endfunction
 
 " Returns the value of a given component of the 'cindent' option
 function Parse_cindent(ch)
